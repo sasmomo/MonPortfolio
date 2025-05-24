@@ -1,1 +1,253 @@
-~<h1> bonjour tous le monde je m'appelle sas 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+
+
+  <meta charset="UTF-8">
+  <title>William Webcode | Développeur Full-Stack</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      background-image: src("./mama.jpg");
+  
+    }
+    
+    .profil{
+      width: 100px;
+      height:100px;
+      border-radius: 50px;
+    }
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+    section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .projet {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, textarea {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  .social-link {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 15px;
+  color: white;
+  background-color: #555;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.social-link:hover {
+  background-color: #000;
+  transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+  <header>
+    <img class="profil" src="../profil.jpg" alt="mon profil" />
+    <h1>William Webcode</h1>
+    <p>Développeur full-stack spécialisé en JavaScript et Python</p>
+  </header>  <nav>
+    <a href="#projets">Projets</a>
+    <a href="#competences">Compétences</a>
+    <a href="#contact">Contact</a>
+  </nav><div style="text-align: center; margin: 1rem 0;">
+  <a href="https://github.com/williamwebcode" target="_blank" class="social-link">GitHub</a>
+  <a href="https://linkedin.com/in/williamwebcode" target="_blank" class="social-link">LinkedIn</a>
+  <a href="https://twitter.com/williamwebcode" target="_blank" class="social-link">Twitter</a>
+</div>  <section id="projets">
+    <h2>Mes Projets</h2>
+    <div class="projet">
+      <h3>AlexMetalPro</h3>
+      <p> est un site de prestations de services pour une entreprise qui fait dans la conception des carrosseries de de véhicules 
+.    </p>
+.       <a href="https://twitter.com/williamwebcode" target="_blank" class="social-link">voir le projet</a>
+    </div>
+    <div class="projet">
+      <h3>WilliConstruction</h3>
+      <p>c'est mon projet personnel qui est plateforme de vente de materiaux de construction en genie civil.</p>
+    </div>
+    
+    <div class="projet">
+      <h3>frankoBTP </h3>
+      <p>c'est plateforme pour une entreprise de génie civil lui permettant de presenter ses services
+      </p>
+    </div>
+    
+ <div class="projet">
+   <h3>CManager</h3>
+   <p>c'est une application permettant de gérer les ouvriers d une entreprise de génie civil 
+   </p>
+ </div>
+    
+  </section>  
+  <section id="competences">
+    <h2>Compétences</h2>
+    <ul>
+      <li>maîtrise le langage JavaScript</li>
+      <li>Python Django</li>
+      <li>HTML / CSS / Git</li>
+    </ul>
+  </section>  <section id="contact">
+    <h2>Contact</h2>
+    <form>
+      <input type="text" placeholder="Votre nom" required>
+      <input type="email" placeholder="Votre email" required>
+      <textarea rows="5" placeholder="Votre message" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>  
+  <footer>
+    <p>&copy; 2025 William Webcode. Tous droits réservés.</p>
+  </footer>
+  
+  <script src="main.js"></script>
+<script>
+  function validateEmail(email) {
+    // Vérification simple du format email
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  document.querySelector("form").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const name = document.querySelector("input[placeholder='Votre nom']").value.trim();
+    const email = document.querySelector("input[placeholder='Votre email']").value.trim();
+    const message = document.querySelector("textarea").value.trim();
+
+    if (!name || !email || !message) {
+      alert("Tous les champs sont requis.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      alert("Veuillez entrer un email valide.");
+      return;
+    }
+
+    if (message.length < 10) {
+      alert("Le message doit contenir au moins 10 caractères.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/api/contact/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("Message envoyé avec succès !");
+      } else {
+        alert("Erreur lors de l’envoi.");
+      }
+    } catch (err) {
+      alert("Erreur réseau ou serveur.");
+    }
+  });
+</script>
+<!--
+  <script>
+    window.addEventListener('load', () => {
+      const links = document.getElementById('social-links');
+      links.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+      links.style.opacity = '1';
+      links.style.transform = 'translateY(0)';
+    });
+  </script> -->
+</body>
+</html>
+
+
+
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Développeur</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">MonPortfolio</div>
+      <ul class="nav-links">
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Bonjour, je suis <span class="highlight">Jean Dupont</span></h1>
+      <h2 class="typing"></h2>
+      <p>Développeur Web passionné par la création d'expériences interactives.</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn">Voir mes projets</a>
+        <a href="#contact" class="btn btn-secondary">Me contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+-->
